@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6767222F24CAD83500020B6C"
-               BuildableName = "Network_Stack.framework"
-               BlueprintName = "Network Stack"
-               ReferencedContainer = "container:Network Stack.xcodeproj">
+               BuildableName = "NetworkStack.framework"
+               BlueprintName = "NetworkStack"
+               ReferencedContainer = "container:NetworkStack.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -51,9 +51,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6767222F24CAD83500020B6C"
-            BuildableName = "Network_Stack.framework"
-            BlueprintName = "Network Stack"
-            ReferencedContainer = "container:Network Stack.xcodeproj">
+            BuildableName = "NetworkStack.framework"
+            BlueprintName = "NetworkStack"
+            ReferencedContainer = "container:NetworkStack.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

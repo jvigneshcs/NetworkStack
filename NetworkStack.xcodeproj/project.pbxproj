@@ -24,7 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6767223024CAD83500020B6C /* Network_Stack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Network_Stack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6767223024CAD83500020B6C /* NetworkStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6767223324CAD83600020B6C /* Network_Stack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Network_Stack.h; sourceTree = "<group>"; };
 		6767223424CAD83600020B6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6767223B24CAD8B600020B6C /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Endpoint.swift; path = Playground/NetworkStack.playground/Sources/Endpoint.swift; sourceTree = SOURCE_ROOT; };
@@ -56,7 +56,7 @@
 		6767222624CAD83500020B6C = {
 			isa = PBXGroup;
 			children = (
-				6767223224CAD83500020B6C /* Network Stack */,
+				6767223224CAD83500020B6C /* NetworkStack */,
 				6767223124CAD83500020B6C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,12 +64,12 @@
 		6767223124CAD83500020B6C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6767223024CAD83500020B6C /* Network_Stack.framework */,
+				6767223024CAD83500020B6C /* NetworkStack.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6767223224CAD83500020B6C /* Network Stack */ = {
+		6767223224CAD83500020B6C /* NetworkStack */ = {
 			isa = PBXGroup;
 			children = (
 				6767223B24CAD8B600020B6C /* Endpoint.swift */,
@@ -88,7 +88,7 @@
 				6767223324CAD83600020B6C /* Network_Stack.h */,
 				6767223424CAD83600020B6C /* Info.plist */,
 			);
-			path = "Network Stack";
+			path = NetworkStack;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -105,9 +105,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6767222F24CAD83500020B6C /* Network Stack */ = {
+		6767222F24CAD83500020B6C /* NetworkStack */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6767223824CAD83600020B6C /* Build configuration list for PBXNativeTarget "Network Stack" */;
+			buildConfigurationList = 6767223824CAD83600020B6C /* Build configuration list for PBXNativeTarget "NetworkStack" */;
 			buildPhases = (
 				6767222B24CAD83500020B6C /* Headers */,
 				6767222C24CAD83500020B6C /* Sources */,
@@ -118,9 +118,9 @@
 			);
 			dependencies = (
 			);
-			name = "Network Stack";
+			name = NetworkStack;
 			productName = "Network Stack";
-			productReference = 6767223024CAD83500020B6C /* Network_Stack.framework */;
+			productReference = 6767223024CAD83500020B6C /* NetworkStack.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -138,7 +138,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6767222A24CAD83500020B6C /* Build configuration list for PBXProject "Network Stack" */;
+			buildConfigurationList = 6767222A24CAD83500020B6C /* Build configuration list for PBXProject "NetworkStack" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -151,7 +151,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6767222F24CAD83500020B6C /* Network Stack */,
+				6767222F24CAD83500020B6C /* NetworkStack */,
 			);
 		};
 /* End PBXProject section */
@@ -319,8 +319,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Network Stack/Info.plist";
+				INFOPLIST_FILE = NetworkStack/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -344,8 +345,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Network Stack/Info.plist";
+				INFOPLIST_FILE = NetworkStack/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -362,7 +364,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6767222A24CAD83500020B6C /* Build configuration list for PBXProject "Network Stack" */ = {
+		6767222A24CAD83500020B6C /* Build configuration list for PBXProject "NetworkStack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6767223624CAD83600020B6C /* Debug */,
@@ -371,7 +373,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6767223824CAD83600020B6C /* Build configuration list for PBXNativeTarget "Network Stack" */ = {
+		6767223824CAD83600020B6C /* Build configuration list for PBXNativeTarget "NetworkStack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6767223924CAD83600020B6C /* Debug */,
