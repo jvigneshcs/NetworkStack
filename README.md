@@ -1,4 +1,4 @@
-# NetworkStack [![Language](https://img.shields.io/badge/swift-5.1-brightgreen.svg)](http://swift.org)
+# NetworkStack [![Language](https://img.shields.io/badge/swift-5.1-brightgreen.svg)](http://swift.org)  [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Clean &amp; simple Swift networking stack
 
