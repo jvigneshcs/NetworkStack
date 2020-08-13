@@ -4,7 +4,10 @@ import PackageDescription
 let package = Package(
     name: "NetworkStack",
     platforms: [
+        .macOS(.v10_11),
         .iOS(.v9),
+        .tvOS(.v9),
+        .watchOS(.v3)
     ],
     products: [
         .library(
@@ -14,7 +17,7 @@ let package = Package(
     targets: [
         .target(
             name: "NetworkStack",
-            path: "NetworkStack"          
+            path: "NetworkStack/Playground/NetworkStack.playground/Sources"          
             ),
     ],
     swiftLanguageVersions: [.v4_2]
