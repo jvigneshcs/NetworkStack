@@ -15,6 +15,7 @@ public protocol Endpoint {
     var queryItems: [URLQueryItem]? { get }
     var scheme: String { get }
     var host: String { get }
+    var port: Int? { get }
     var body: Data? { get }
 }
 
@@ -24,6 +25,7 @@ public extension Endpoint {
         var urlComponents = URLComponents()
         urlComponents.scheme = scheme
         urlComponents.host = host
+        urlComponents.port = port
         urlComponents.path = endpoint
         urlComponents.queryItems = queryItems
         guard let url = urlComponents.url else { return nil }
