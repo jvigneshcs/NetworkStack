@@ -15,13 +15,13 @@ public struct Parser {
         
     }
     
-    public func json<T: Decodable>(data: Data, completition: @escaping ResultCallback<T>) {
+    public func json<T: Decodable>(data: Data, urlResponse: URLResponse? = nil, completition: @escaping ResultCallback<T>) {
         do {
             let result: T = try jsonDecoder.decode(T.self, from: data)
             OperationQueue.main.addOperation { completition(.success(result)) }
             
         } catch let error {
-            OperationQueue.main.addOperation { completition(.failure(.parserError(error: error))) }
+            OperationQueue.main.addOperation { completition(.failure(.parserError(error: error, data: data, urlResponse: urlResponse))) }
         }
     }
 }

@@ -14,5 +14,5 @@ public enum NetworkStackError: Error {
     case endpointNotMocked
     case mockDataMissing
     case responseError(error: Error)
-    case parserError(error: Error)
+    case parserError(error: Error, data: Data, urlResponse: URLResponse?)
 }

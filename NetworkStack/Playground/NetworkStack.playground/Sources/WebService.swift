@@ -44,7 +44,7 @@ public class WebService: WebServiceProtocol {
                 return
             }
             
-            self.parser.json(data: data, completition: completition)
+            self.parser.json(data: data, urlResponse: response, completition: completition)
         }
         
         task.resume()
