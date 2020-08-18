@@ -15,6 +15,7 @@ public protocol Endpoint {
     var queryItems: [URLQueryItem]? { get }
     var scheme: String { get }
     var host: String { get }
+    var body: Data? { get }
 }
 
 public extension Endpoint {
@@ -33,6 +34,7 @@ public extension Endpoint {
                 request.setValue(value, forHTTPHeaderField: key)
             }
         }
+        request.httpBody = body
         
         return request
     }
