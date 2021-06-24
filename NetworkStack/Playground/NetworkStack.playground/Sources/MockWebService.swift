@@ -30,7 +30,7 @@ public class MockWebService: WebServiceProtocol {
         parser.json(data: data, completition: completition)
     }
     
-    public func request<T: Decodable>(_ endpoint: Endpoint, completition: @escaping ResultCallback<T>) -> URLSessionTask? {
+    public func task<T: Decodable>(for endpoint: Endpoint, completition: @escaping ResultCallback<T>) -> URLSessionTask? {
         guard let endpoint = endpoint as? MockEndpoint else {
             OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.endpointNotMocked)) })
             return nil

@@ -10,6 +10,6 @@ import Foundation
 
 public protocol WebServiceProtocol {
     func request<T: Decodable>(_ endpoint: Endpoint, completition: @escaping ResultCallback<T>)
-    func request<T: Decodable>(_ endpoint: Endpoint, completition: @escaping ResultCallback<T>) -> URLSessionTask?
+    func task<T: Decodable>(for endpoint: Endpoint, completition: @escaping ResultCallback<T>) -> URLSessionTask?
     func resume(task: URLSessionTask)
 }

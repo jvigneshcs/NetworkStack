@@ -32,20 +32,20 @@ public class WebService: WebServiceProtocol {
     ///   - completition: ResultCallback
     public func request<T: Decodable>(_ endpoint: Endpoint, completition: @escaping ResultCallback<T>) {
         
-        guard let task = self.request(endpoint,
-                                      completition: completition) else {
+        guard let task = self.task(for: endpoint,
+                                   completition: completition) else {
             return
         }
         
         self.resume(task: task)
     }
     
-    /// Request with Endpoint, calling URLSessionTask's resume function is caller's responsibility
+    /// Task for Endpoint, calling URLSessionTask's resume function is caller's responsibility
     /// - Parameters:
-    ///   - endpoint: Endpoint
+    ///   - for: Endpoint
     ///   - completition: ResultCallback
     /// - Returns: URLSessionTask
-    public func request<T: Decodable>(_ endpoint: Endpoint, completition: @escaping ResultCallback<T>) -> URLSessionTask? {
+    public func task<T: Decodable>(for endpoint: Endpoint, completition: @escaping ResultCallback<T>) -> URLSessionTask? {
         
         guard let request = endpoint.request else {
             OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.invalidRequest)) })
