@@ -10,7 +10,7 @@ import Foundation
 
 public class WebService: WebServiceProtocol {
     private let urlSession: URLSession
-    private let parser: Parser
+    private let parser: ParserProtocol
     private let networkActivity: NetworkActivityProtocol
     
     /// Initializer
@@ -19,7 +19,7 @@ public class WebService: WebServiceProtocol {
     ///   - parser: Parser
     ///   - networkActivity: NerworkActivityProtocol
     public init(urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default),
-                parser: Parser = Parser(),
+                parser: ParserProtocol = Parser(),
                 networkActivity: NetworkActivityProtocol = NetworkActivity()) {
         self.urlSession = urlSession
         self.parser = parser
@@ -29,11 +29,11 @@ public class WebService: WebServiceProtocol {
     /// Request with Endpoint
     /// - Parameters:
     ///   - endpoint: Endpoint
-    ///   - completition: ResultCallback
-    public func request<T: Decodable>(_ endpoint: Endpoint, completition: @escaping ResultCallback<T>) {
+    ///   - completion: ResultCallback
+    public func request<T: Decodable>(_ endpoint: Endpoint, completion: @escaping ResultCallback<T>) {
         
         guard let task = self.task(for: endpoint,
-                                   completition: completition) else {
+                                   completion: completion) else {
             return
         }
         
@@ -43,12 +43,12 @@ public class WebService: WebServiceProtocol {
     /// Task for Endpoint, calling URLSessionTask's resume function is caller's responsibility
     /// - Parameters:
     ///   - for: Endpoint
-    ///   - completition: ResultCallback
+    ///   - completion: ResultCallback
     /// - Returns: URLSessionTask
-    public func task<T: Decodable>(for endpoint: Endpoint, completition: @escaping ResultCallback<T>) -> URLSessionTask? {
+    public func task<T: Decodable>(for endpoint: Endpoint, completion: @escaping ResultCallback<T>) -> URLSessionTask? {
         
         guard let request = endpoint.request else {
-            OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.invalidRequest)) })
+            OperationQueue.main.addOperation({ completion(.failure(NetworkStackError.invalidRequest)) })
             return nil
         }
         
@@ -57,16 +57,16 @@ public class WebService: WebServiceProtocol {
             self.networkActivity.decrement()
             
             if let error = error {
-                OperationQueue.main.addOperation({ completition(.failure(.responseError(error: error))) })
+                OperationQueue.main.addOperation({ completion(.failure(.responseError(error: error))) })
                 return
             }
             
             guard let data = data else {
-                OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.dataMissing)) })
+                OperationQueue.main.addOperation({ completion(.failure(NetworkStackError.dataMissing)) })
                 return
             }
             
-            self.parser.json(data: data, urlResponse: response, completition: completition)
+            self.parser.json(data: data, urlResponse: response, completion: completion)
         }
         
         return task

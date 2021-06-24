@@ -45,7 +45,7 @@ The `WebService` class is used for making web requests. It implements the `WebSe
 
 ```swift
 protocol WebServiceProtocol {
-    func request<T: Decodable>(_ endpoint: Endpoint, completition: @escaping ResultCallback<T>)
+    func request<T: Decodable>(_ endpoint: Endpoint, completion: @escaping ResultCallback<T>)
 }
 
 class WebService: WebServiceProtocol {
@@ -61,10 +61,10 @@ class WebService: WebServiceProtocol {
         self.networkActivity = networkActivity
     }
 
-    func request<T: Decodable>(_ endpoint: Endpoint, completition: @escaping ResultCallback<T>) {
+    func request<T: Decodable>(_ endpoint: Endpoint, completion: @escaping ResultCallback<T>) {
 
         guard let request = endpoint.request else {
-            OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.invalidRequest)) })
+            OperationQueue.main.addOperation({ completion(.failure(NetworkStackError.invalidRequest)) })
             return
         }
 
@@ -75,16 +75,16 @@ class WebService: WebServiceProtocol {
             self.networkActivity.decrement()
 
             if let error = error {
-                OperationQueue.main.addOperation({ completition(.failure(.responseError(error: error))) })
+                OperationQueue.main.addOperation({ completion(.failure(.responseError(error: error))) })
                 return
             }
 
             guard let data = data else {
-                OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.dataMissing)) })
+                OperationQueue.main.addOperation({ completion(.failure(NetworkStackError.dataMissing)) })
                 return
             }
 
-            self.parser.json(data: data, completition: completition)
+            self.parser.json(data: data, completion: completion)
         }
 
         task.resume()
@@ -104,19 +104,19 @@ class MockWebService: WebServiceProtocol {
         self.parser = parser
     }
 
-    func request<T: Decodable>(_ endpoint: Endpoint, completition: @escaping ResultCallback<T>) {
+    func request<T: Decodable>(_ endpoint: Endpoint, completion: @escaping ResultCallback<T>) {
 
         guard let endpoint = endpoint as? MockEndpoint else {
-            OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.endpointNotMocked)) })
+            OperationQueue.main.addOperation({ completion(.failure(NetworkStackError.endpointNotMocked)) })
             return
         }
 
         guard let data = endpoint.mockData() else {
-            OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.mockDataMissing)) })
+            OperationQueue.main.addOperation({ completion(.failure(NetworkStackError.mockDataMissing)) })
             return
         }
 
-        parser.json(data: data, completition: completition)
+        parser.json(data: data, completion: completion)
     }
 }
 ```
@@ -183,19 +183,19 @@ Called from the `Webservice`, parses the `Data` response and calls the result ca
 
 ```swift
 protocol ParserProtocol {
-    func json<T: Decodable>(data: Data, completition: @escaping ResultCallback<T>)
+    func json<T: Decodable>(data: Data, completion: @escaping ResultCallback<T>)
 }
 
 struct Parser {
     let jsonDecoder = JSONDecoder()
 
-    func json<T: Decodable>(data: Data, completition: @escaping ResultCallback<T>) {
+    func json<T: Decodable>(data: Data, completion: @escaping ResultCallback<T>) {
         do {
             let result: T = try jsonDecoder.decode(T.self, from: data)
-            OperationQueue.main.addOperation { completition(.success(result)) }
+            OperationQueue.main.addOperation { completion(.success(result)) }
 
         } catch let error {
-            OperationQueue.main.addOperation { completition(.failure(.parserError(error: error))) }
+            OperationQueue.main.addOperation { completion(.failure(.parserError(error: error))) }
         }
     }
 }

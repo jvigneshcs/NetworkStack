@@ -9,5 +9,5 @@
 import Foundation
 
 public protocol ParserProtocol {
-    func json<T: Decodable>(data: Data, completition: @escaping ResultCallback<T>)
+    func json<T: Decodable>(data: Data, urlResponse: URLResponse?, completion: @escaping ResultCallback<T>)
 }

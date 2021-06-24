@@ -15,29 +15,29 @@ public class MockWebService: WebServiceProtocol {
         self.parser = parser
     }
     
-    public func request<T: Decodable>(_ endpoint: Endpoint, completition: @escaping ResultCallback<T>) {
+    public func request<T: Decodable>(_ endpoint: Endpoint, completion: @escaping ResultCallback<T>) {
         
         guard let endpoint = endpoint as? MockEndpoint else {
-            OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.endpointNotMocked)) })
+            OperationQueue.main.addOperation({ completion(.failure(NetworkStackError.endpointNotMocked)) })
             return
         }
         
         guard let data = endpoint.mockData() else {
-            OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.mockDataMissing)) })
+            OperationQueue.main.addOperation({ completion(.failure(NetworkStackError.mockDataMissing)) })
             return
         }
         
-        parser.json(data: data, completition: completition)
+        self.parser.json(data: data, urlResponse: nil, completion: completion)
     }
     
-    public func task<T: Decodable>(for endpoint: Endpoint, completition: @escaping ResultCallback<T>) -> URLSessionTask? {
+    public func task<T: Decodable>(for endpoint: Endpoint, completion: @escaping ResultCallback<T>) -> URLSessionTask? {
         guard let endpoint = endpoint as? MockEndpoint else {
-            OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.endpointNotMocked)) })
+            OperationQueue.main.addOperation({ completion(.failure(NetworkStackError.endpointNotMocked)) })
             return nil
         }
         
         guard (endpoint.mockData()) != nil else {
-            OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.mockDataMissing)) })
+            OperationQueue.main.addOperation({ completion(.failure(NetworkStackError.mockDataMissing)) })
             return nil
         }
         

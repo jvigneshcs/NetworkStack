@@ -8,20 +8,20 @@
 
 import Foundation
 
-public struct Parser {
+public struct Parser: ParserProtocol {
     public let jsonDecoder = JSONDecoder()
     
     public init() {
         
     }
     
-    public func json<T: Decodable>(data: Data, urlResponse: URLResponse? = nil, completition: @escaping ResultCallback<T>) {
+    public func json<T: Decodable>(data: Data, urlResponse: URLResponse?, completion: @escaping ResultCallback<T>) {
         do {
             let result: T = try jsonDecoder.decode(T.self, from: data)
-            OperationQueue.main.addOperation { completition(.success(result)) }
+            OperationQueue.main.addOperation { completion(.success(result)) }
             
         } catch let error {
-            OperationQueue.main.addOperation { completition(.failure(.parserError(error: error, data: data, urlResponse: urlResponse))) }
+            OperationQueue.main.addOperation { completion(.failure(.parserError(error: error, data: data, urlResponse: urlResponse))) }
         }
     }
 }
