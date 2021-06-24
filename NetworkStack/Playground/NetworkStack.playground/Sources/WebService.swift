@@ -13,22 +13,44 @@ public class WebService: WebServiceProtocol {
     private let parser: Parser
     private let networkActivity: NetworkActivityProtocol
     
+    /// Initializer
+    /// - Parameters:
+    ///   - urlSession: URLSession
+    ///   - parser: Parser
+    ///   - networkActivity: NerworkActivityProtocol
     public init(urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default),
-         parser: Parser = Parser(),
-         networkActivity: NetworkActivityProtocol = NetworkActivity()) {
+                parser: Parser = Parser(),
+                networkActivity: NetworkActivityProtocol = NetworkActivity()) {
         self.urlSession = urlSession
         self.parser = parser
         self.networkActivity = networkActivity
     }
     
+    /// Request with Endpoint
+    /// - Parameters:
+    ///   - endpoint: Endpoint
+    ///   - completition: ResultCallback
     public func request<T: Decodable>(_ endpoint: Endpoint, completition: @escaping ResultCallback<T>) {
         
-        guard let request = endpoint.request else {
-            OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.invalidRequest)) })
+        guard let task = self.request(endpoint,
+                                      completition: completition) else {
             return
         }
         
-        networkActivity.increment()
+        self.resume(task: task)
+    }
+    
+    /// Request with Endpoint, calling URLSessionTask's resume function is caller's responsibility
+    /// - Parameters:
+    ///   - endpoint: Endpoint
+    ///   - completition: ResultCallback
+    /// - Returns: URLSessionTask
+    public func request<T: Decodable>(_ endpoint: Endpoint, completition: @escaping ResultCallback<T>) -> URLSessionTask? {
+        
+        guard let request = endpoint.request else {
+            OperationQueue.main.addOperation({ completition(.failure(NetworkStackError.invalidRequest)) })
+            return nil
+        }
         
         let task = urlSession.dataTask(with: request) { [unowned self] (data, response, error) in
             
@@ -47,6 +69,13 @@ public class WebService: WebServiceProtocol {
             self.parser.json(data: data, urlResponse: response, completition: completition)
         }
         
+        return task
+    }
+    
+    /// Resume the URLSessionTask
+    /// - Parameter task: URLSessionTask
+    public func resume(task: URLSessionTask) {
+        self.networkActivity.increment()
         task.resume()
     }
 }
